@@ -8,20 +8,19 @@
 
 void insertion_sort_list(listint_t **list)
 {
-	listint_t *current, *nodomenor, *tmp, *nodosiguiente, *pa_atras;
+	listint_t *current, *nodomenor, *tmp, *nodosiguiente;
 
 	current = *list;
 	tmp = current;
-	pa_atras = current;
 
 	while(current->next)
 	{
 		nodosiguiente = current->next;
 		if (current->n > nodosiguiente->n)
 		{
-			while(pa_atras != NULL && nodosiguiente->n < pa_atras->n)
+			while(tmp != NULL && nodosiguiente->n < tmp->n)
 			{
-				if (nodosiguiente->next != NULL)
+				if (nodosiguiente->next != NULL && tmp->prev)
 				{
 					nodomenor = nodosiguiente;
 
@@ -32,29 +31,39 @@ void insertion_sort_list(listint_t **list)
 					tmp->prev = nodomenor;
 					tmp->next->prev = tmp;
 					print_list(*list);
-
 				}
-				else
+				else if (tmp->prev == NULL)
 				{
 					nodomenor = nodosiguiente;
 
 					tmp->next = tmp->next->next;
+                    nodomenor->next = tmp;
+                    nodomenor->prev = NULL;
+                    tmp->prev = nodomenor;
+                    tmp->next->prev = tmp;
+					*list =nodomenor;
+					print_list(*list);
+				}
+				else if (nodosiguiente->next == NULL)
+				{
+					nodomenor = nodosiguiente;
+
+					tmp->next = NULL;
 					tmp->prev->next = nodomenor;
-					nodomenor->next = NULL;
+					nodomenor->next = tmp;
 					nodomenor->prev = tmp->prev;
 					tmp->prev = nodomenor;
 					print_list(*list);
 				}
-			pa_atras = nodosiguiente->prev;
+			tmp = nodosiguiente->prev;
 
 			}
-			pa_atras = current;
-
+			tmp = current;
 		}
 		else
 		{
 			current = current->next;
-			pa_atras = current;
+			tmp = current;
 			tmp = current;
 		}
 	}
