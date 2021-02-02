@@ -8,71 +8,30 @@
 
 void insertion_sort_list(listint_t **list)
 {
-	listint_t *current = *list, *nodomenor, *tmp = current, *nodosiguiente;
+	listint_t *current = NULL;
 
-	current = *list;
-	tmp = current;
-
-	if (*list == NULL || (*list)->next == NULL)
+	if (list == NULL || *list == NULL || (*list)->next == NULL)
 		return;
 
-	while (current->next)
+	current = (*list)->next;
+
+	while (current)
 	{
-		nodosiguiente = current->next;
-		if (nodosiguiente->n < current->n)
+		while (current->prev != NULL && current->n < current->prev->n)
 		{
-			while (tmp != NULL && nodosiguiente->n < tmp->n)
-			{
-				if (nodosiguiente->next != NULL && tmp->prev != NULL)
-				{
-					nodomenor = nodosiguiente;
-					tmp->next = tmp->next->next;
-					tmp->prev->next = nodomenor;
-					nodomenor->next = tmp;
-					nodomenor->prev = tmp->prev;
-					tmp->prev = nodomenor;
-					tmp->next->prev = tmp;
-					print_list(*list);
-				}
-				else if (tmp->prev == NULL && nodosiguiente->next != NULL)
-				{
-					nodomenor = nodosiguiente;
-					tmp->next = tmp->next->next;
-					nodomenor->next = tmp;
-					nodomenor->prev = NULL;
-					tmp->prev = nodomenor;
-					tmp->next->prev = tmp;
-					*list = nodomenor;
-					print_list(*list);
-				}
-				else if (nodosiguiente->next == NULL && tmp->prev != NULL)
-				{
-					nodomenor = nodosiguiente;
-					tmp->next = NULL;
-					tmp->prev->next = nodomenor;
-					nodomenor->next = tmp;
-					nodomenor->prev = tmp->prev;
-					tmp->prev = nodomenor;
-					print_list(*list);
-				}
-				else if (nodosiguiente->next == NULL && tmp->prev == NULL)
-				{
-					nodomenor->prev->next = nodomenor->next;
-					nodomenor->next = nodomenor->prev;
-					nodomenor->prev = nodomenor->prev->prev;
-					nodomenor->next->prev = nodomenor;
-					*list = nodomenor;
-					print_list(*list);
-				}
-			tmp = nodosiguiente->prev;
-			}
-			tmp = current;
+			current->prev->next = current->next;
+			if (current->next != NULL)
+				current->next->prev = current->prev;
+			current->next = current->prev;
+			current->prev = current->next->prev;
+			current->next->prev = current;
+			if (current->prev == NULL)
+				*list = current;
+			else
+				current->prev->next = current;
+			print_list(*list);
+
 		}
-		else
-		{
-			current = current->next;
-			tmp = current;
-			tmp = current;
-		}
+		current = current->next;
 	}
 }
