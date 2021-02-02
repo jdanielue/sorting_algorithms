@@ -24,5 +24,9 @@ void bubble_sort(int *array, size_t size);
 void insertion_sort_list(listint_t **list);
 void swap_atras(listint_t *nodomenor);
 void selection_sort(int *array, size_t size);
+void quick_sort(int *array, size_t size);
+void quick_sort_lomuto(int *array, int low, int hi);
+int parttion(int *array, int low, int hi);
+void swap(int *array, int a, int b);
 
 #endif
