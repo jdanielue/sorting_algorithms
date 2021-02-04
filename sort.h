@@ -28,5 +28,6 @@ void quick_sort(int *array, size_t size);
 void quick_sort_lomuto(int *array, size_t size, int low, int hi);
 int partition(int *array, size_t size, int low, int hi);
 void swap(int *array, size_t size, int a, int b);
+void shell_sort(int *array, size_t size);
 
 #endif
