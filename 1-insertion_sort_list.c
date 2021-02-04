@@ -3,7 +3,7 @@
 /**
  * insertion_sort_list - sorts a doubly linked list of integers
  *
- * @list: Pointer to the list element v5
+ * @list: Pointer to the list element v6
  */
 
 void insertion_sort_list(listint_t **list)
